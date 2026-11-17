@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>商品查詢</title>
+</head>
+<body>
+    <h1>商品列表</h1>
+
+    <button onclick="loadProducts()">
+        取得商品
+    </button>
+
+    <ul id="products"></ul>
+    <form hidden>
+    {% csrf_token %}
+</form>
+
+    <h2>訂單試算</h2>
+    <button id="previewOrder">試算訂單</button>
+    <pre id="orderResult"></pre>
+    
+    <script>
+        async function loadProducts() {
+            const response = await fetch("/api/products/");
+            const data = await response.json();
+
+            const list = document.getElementById("products");
+            list.innerHTML = "";
+
+            data.products.forEach(product => {
+                const item = document.createElement("li");
+                item.textContent =
+                    `${product.name} - NT$${product.price}`;
+                list.appendChild(item);
+            });
+        }
+
+        document.getElementById("previewOrder")
+            .addEventListener("click", async () => {
+
+            const output = document.getElementById("orderResult");
+
+            const csrfToken = document.querySelector(
+                "[name=csrfmiddlewaretoken]"
+            ).value;
+
+        try {
+            const response = await fetch("/api/orders/preview/", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+        },
+                body: JSON.stringify({
+                username: "tester01",
+                product_id: 2,
+                quantity: 2
+        })
+      });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                output.textContent = `預估總價：NT$${data.total}`;
+            } else {
+                output.textContent = `錯誤：${data.error}`;
+            }
+
+        } catch (error) {
+            output.textContent = `連線或資料解析失敗：${error.message}`;
+        }
+    });
+    </script>
+</body>
+</html>
