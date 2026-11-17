@@ -17,7 +17,7 @@
 
 **技術棧：** Python · Django · SQLite · Django ORM · SQL · Postman · JavaScript · HTML · Git
 
-**詳細證據：** [API 測試報告](docs/TEST_REPORT.md) · [Postman 測試腳本與使用說明][(docs/POSTMAN_TESTS.md)](https://github.com/zoey0603/Django-API/blob/main/django-api-qa-lab-portfolio-files/docs/POSTMAN_TESTS.md)
+**詳細證據：** [[API 測試報告]](https://github.com/zoey0603/Django-API/blob/main/django-api-qa-lab-portfolio-files/docs/TEST_REPORT.md) · [Postman 測試腳本與使用說明](https://github.com/zoey0603/Django-API/blob/main/django-api-qa-lab-portfolio-files/docs/POSTMAN_TESTS.md)
 
 ## 專案功能與 API
 
